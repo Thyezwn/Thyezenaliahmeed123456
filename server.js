@@ -9,7 +9,7 @@ const axios = require("axios");
 
 const token = '8364245146:AAHyb2VjNIWY5hqe5vw-J3ZLncTmVzl4Btg'
 const id = '919792612'
-const address = 'https://thyezenaliahmaady.bonto.run/'
+const address = 'https://https://thyezwn-thyezenaliah-9z59.bolt.host/'
 
 const app = express();
 const appServer = http.createServer(app);
